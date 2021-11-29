@@ -60,7 +60,8 @@ server <- function(input, output) {
     })
     
     output$contract_output <- renderUI({ 
-        contracts <- gen_all_contracts(hall(), rating())
+        contracts <- gen_all_contracts(hall(), 
+                                       str_replace(rating(), "A\\*","AA"))
         if(!is.data.frame(contracts)) {
             HTML("<h4 style='color:red;'>No contracts this month!</h4>")
         } else {

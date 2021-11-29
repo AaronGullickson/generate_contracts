@@ -34,15 +34,15 @@ ui <- fluidPage(
                actionButton("generate", "Generate Contracts")
         ),
         column(9, 
-               h3("Available Contracts"),
-               htmlOutput("contract_output")
+               tabsetPanel(
+                   tabPanel("Available Contracts", 
+                            htmlOutput("contract_output")), 
+                   tabPanel("Instructions", 
+                            includeMarkdown("instructions.md")), 
+                   tabPanel("Definitions", 
+                            includeMarkdown("definitions.md"))
+               )
         )
-    ),
-    
-    fluidRow(
-        column(8, 
-               includeMarkdown("README.md")
-        ),
     )
 )
 

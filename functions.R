@@ -94,10 +94,10 @@ gen_contract <- function(hall, rating) {
   transport <- paste(subset(supplemental, Roll==transport_roll)$Transport, 
                      " (", transport_roll, ")", sep="")
   
-  return(list(employer=employer, mission_type=mission_type, 
-              pay_mult=pay_mult, mission_length=mission_length,
-              command=command, overhead=overhead, salvage=salvage,
-              support=support, transport=transport))
+  return(c(employer=employer, mission_type=mission_type, 
+           pay_mult=pay_mult, mission_length=mission_length,
+           command=command, overhead=overhead, salvage=salvage,
+           support=support, transport=transport))
 }
 
 gen_all_contracts <- function(hall, rating) {
@@ -107,5 +107,5 @@ gen_all_contracts <- function(hall, rating) {
   if(n_offer==0) {
     return(NA)
   }
-  replicate(n_offer, gen_contract(hall, rating))
+  plyr::rdply(n_offer, gen_contract(hall, rating))
 }

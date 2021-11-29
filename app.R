@@ -34,7 +34,7 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            textOutput("contract_output")
+            tableOutput("contract_output")
         )
     )
 )
@@ -42,7 +42,7 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
-    output$contract_output <- renderPrint({ 
+    output$contract_output <- renderTable({ 
         gen_all_contracts(input$hall, input$rating)
     })
 }

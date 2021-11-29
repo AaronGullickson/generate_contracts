@@ -12,9 +12,12 @@ The number of offers received depends on a non-linear combination of the hiring 
 | Standard     |    -4      |    -2   |    +0   |    +1   |    +2   |    +1    |    +0    |
 | Great        |    -6      |    -4   |    -2   |    +0   |    +1   |    +2    |    +2    |
 
+<br>
+
 A unit that has an administrator or commanding officer with the well-connected perk can add an additional +1 to the modifier.
 
 To find the number of contract offers this month, roll 2d6 and add the modifier. Then consult the following table.
+
 
 | Roll          | Offers |
 |---------------|-------:|
@@ -24,11 +27,14 @@ To find the number of contract offers this month, roll 2d6 and add the modifier.
 | 12-13         |     3  |
 | 14 or more    |     4  |
 
+<br>
+
 ### Step 2: Determine each contract
 
 #### Step 2a: Determine employer
 
 First, determine the employer modifiers based on hall type and unit rating, using the tables below.
+
 
 | Hall         | Employer |
 |--------------|---------:|
@@ -38,6 +44,7 @@ First, determine the employer modifiers based on hall type and unit rating, usin
 | Standard     |    +1    |
 | Great        |    +2    |
 
+<br>
 
 | Rating | Employer |
 |--------|---------:|
@@ -48,6 +55,8 @@ First, determine the employer modifiers based on hall type and unit rating, usin
 | B      |    +1    |
 | A      |    +2    |
 | A*     |    +2    |
+
+<br>
 
 Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column of the table. 
 
@@ -64,6 +73,8 @@ Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column o
 | 10         | Major Power | Corporation    | Minor Inner Sphere |
 | 11         | Major Power | Corporation    | Minor Inner Sphere |
 | 12 or more | Major Power | Corporation    | Minor Inner Sphere |
+
+<br>
 
 If you get *Independent Employer* or *Minor Power* on this roll, then roll again (with the same modifiers) on the appropriate column to see more exactly what kind of employer you get.
 
@@ -87,6 +98,7 @@ Mission type is determined by a straight 2d6 roll. Look on the appropriate colum
 | 11   | Special           | Special           | Covert          | Planetary Assault | Special         | Guerilla*         | Assassination     |
 | 12   | Covert            | Covert            | Covert          | Special           | Covert          | Covert            | Terrorism         |
 
+<br>
 
 An \* means that this contract is followed up immediately by a full *Planetary Assault* contract.
 
@@ -116,6 +128,7 @@ Use the tables below to to determine pay multiplier, contract length, and supple
 | Security Duty       |    1.1         |  6 months |      -3 |      +0 |      +2 |       +1  |
 | Terrorism           |    1.7         |  3 months |      +2 |      +1 |      -1 |       -3  |
 
+<br>
 
 | Type               | PayMult | Command | Salvage | Support | Transport |
 |--------------------|--------:|--------:|--------:|--------:|----------:|
@@ -128,6 +141,7 @@ Use the tables below to to determine pay multiplier, contract length, and supple
 | Mercenary          |   1.1   |     -1  |     +2  |      +1 |    +1     |
 | Private Party      |   0.7   |     +0  |     +0  |      +0 |    -1     |
 
+<br>
 
 | Rating | Employer | PayMult | Command | Salvage | Support | Transport |
 |--------|---------:|--------:|--------:|--------:|--------:|----------:|
@@ -138,6 +152,8 @@ Use the tables below to to determine pay multiplier, contract length, and supple
 | B      |    +1    | 1.0     |   +1    |   +1    |   +0    |     +0    |
 | A      |    +2    | 1.1     |   +2    |   +1    |   +1    |     +1    |
 | A*     |    +2    | 1.15    |   +3    |   +2    |   +2    |     +2    |
+
+<br>
 
 To determine supplemental characteristics roll a 2d6 for each column below, applying the appropriate modifiers each time. 
 
@@ -154,6 +170,8 @@ To determine supplemental characteristics roll a 2d6 for each column below, appl
 | 10           | Independent | Full     | 80%      | Battle/40%    | 80%       |
 | 11           | Independent | Full     | 90%      | Battle/50%    | 90%       |
 | 12 or more   | Independent | Full     | Full     | Battle/60%    | Full      |
+
+<br>
 
 ## Step 3: Negotiate contract
 

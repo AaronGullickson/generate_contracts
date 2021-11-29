@@ -12,6 +12,8 @@ library(dplyr)
 library(read.so)
 library(tidyr)
 library(stringr)
+library(knitr)
+library(kableExtra)
 source("read_tables.R")
 source("functions.R")
 
@@ -35,7 +37,7 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            tableOutput("contract_output")
+            htmlOutput("contract_output")
         )
     )
 )
@@ -51,8 +53,20 @@ server <- function(input, output) {
         input$rating
     })
     
-    output$contract_output <- renderTable({ 
-        gen_all_contracts(hall(), rating())
+    output$contract_output <- renderUI({ 
+        contracts <- gen_all_contracts(hall(), rating())
+        if(is.na(contracts)) {
+            HTML("<center><h2>No contracts this month!</h2></center>")
+        } else {
+            contract_tab <- contracts %>% 
+                select(!(.n)) %>%
+                kbl(contracts, format="html",
+                    col.names=c("Employer","Mission Type","Pay Multiplier",
+                                "Mission Length","Command","Overhead","Salvage",
+                                "Support","Transport")) %>%
+                kable_styling()
+            HTML(contract_tab)
+        }
     })
 }
 

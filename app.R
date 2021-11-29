@@ -59,7 +59,7 @@ server <- function(input, output) {
     
     output$contract_output <- renderUI({ 
         contracts <- gen_all_contracts(hall(), rating())
-        if(is.na(contracts)) {
+        if(!is.data.frame(contracts)) {
             HTML("<h4 style='color:red;'>No contracts this month!</h4>")
         } else {
             contract_tab <- contracts %>% 

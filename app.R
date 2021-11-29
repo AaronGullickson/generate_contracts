@@ -29,7 +29,8 @@ ui <- fluidPage(
                         selected = "Standard"),
             selectInput("rating", h3("Select Rating"), 
                         choices = c("None","F","D","C","B","A","A*"),
-                        selected = "C")
+                        selected = "C"),
+            actionButton("generate", "Generate Contracts")
         ),
 
         # Show a plot of the generated distribution
@@ -42,8 +43,16 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+    hall <- eventReactive(input$generate, {
+        input$hall
+    })
+    
+    rating <- eventReactive(input$generate, {
+        input$rating
+    })
+    
     output$contract_output <- renderTable({ 
-        gen_all_contracts(input$hall, input$rating)
+        gen_all_contracts(hall(), rating())
     })
 }
 

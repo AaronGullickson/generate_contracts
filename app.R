@@ -19,12 +19,14 @@ source("functions.R")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+    #CSS
+    includeCSS("custom.css"),
 
     # Application title
     titlePanel("Mercenary Contract Generator"),
 
     fluidRow(
-        column(3, style = "background-color: #DCDCDC; padding: 10px;",
+        column(2, style = "background-color: #cb4154; padding: 15px; border-radius: 25px; color: white",
                selectInput("hall", h3("Select Hall"), 
                            choices = c("None","Questionable","Minor","Standard","Great"),
                            selected = "Standard"),
@@ -33,7 +35,7 @@ ui <- fluidPage(
                            selected = "C"),
                actionButton("generate", "Generate Contracts")
         ),
-        column(9, 
+        column(10, 
                tabsetPanel(
                    tabPanel("Available Contracts", 
                             htmlOutput("contract_output")), 

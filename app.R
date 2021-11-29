@@ -23,22 +23,26 @@ ui <- fluidPage(
     # Application title
     titlePanel("Mercenary Contract Generator"),
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            selectInput("hall", h3("Select Hall"), 
-                        choices = c("None","Questionable","Minor","Standard","Great"),
-                        selected = "Standard"),
-            selectInput("rating", h3("Select Rating"), 
-                        choices = c("None","F","D","C","B","A","A*"),
-                        selected = "C"),
-            actionButton("generate", "Generate Contracts")
+    fluidRow(
+        column(3, style = "background-color: #DCDCDC; padding: 10px;",
+               selectInput("hall", h3("Select Hall"), 
+                           choices = c("None","Questionable","Minor","Standard","Great"),
+                           selected = "Standard"),
+               selectInput("rating", h3("Select Rating"), 
+                           choices = c("None","F","D","C","B","A","A*"),
+                           selected = "C"),
+               actionButton("generate", "Generate Contracts")
         ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            htmlOutput("contract_output")
+        column(9, 
+               h3("Available Contracts"),
+               htmlOutput("contract_output")
         )
+    ),
+    
+    fluidRow(
+        column(8, 
+               includeMarkdown("README.md")
+        ),
     )
 )
 
@@ -56,7 +60,7 @@ server <- function(input, output) {
     output$contract_output <- renderUI({ 
         contracts <- gen_all_contracts(hall(), rating())
         if(is.na(contracts)) {
-            HTML("<center><h2>No contracts this month!</h2></center>")
+            HTML("<h4 style='color:red;'>No contracts this month!</h4>")
         } else {
             contract_tab <- contracts %>% 
                 select(!(.n)) %>%

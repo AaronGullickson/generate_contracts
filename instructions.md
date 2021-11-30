@@ -6,7 +6,7 @@ The number of offers received depends on a non-linear combination of the hiring 
 
 | Hall         | No Rating  |     F   |     D   | C       | B       | A        | A*       |
 |--------------|-----------:|--------:|--------:|--------:|--------:|---------:|---------:|
-| None         |    -5      |    -5   |    -5   |    -5   |    -5   |    -5    |    -5    |
+| None         |    -3      |    -3   |    -3   |    -3   |    -3   |    -3    |    -3    |
 | Questionable |    +0      |    +1   |    +2   |    +1   |    +0   |    -1    |    -2    |
 | Minor        |    -2      |    +0   |    +1   |    +2   |    +1   |    +0    |    -1    |
 | Standard     |    -4      |    -2   |    +0   |    +1   |    +2   |    +1    |    +0    |

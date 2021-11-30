@@ -76,7 +76,9 @@ gen_contract <- function(hall, rating) {
   if(mission_type=="Covert") {
     mission_type <- subset(mission_tab, Roll==roll(2,6))[,"Covert"]
   }
-  mission_mod <- mission_mods %>% filter(Type==mission_type)
+  
+  #remove the asterisks for compound mission when finding the mission mod
+  mission_mod <- mission_mods %>% filter(Type==str_remove(mission_type, "\\*"))
   
   #### Contract characteristics ####
   pay_mult <- rating_mod$PayMult * mission_mod$PayMult * employer_mod$PayMult

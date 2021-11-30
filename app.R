@@ -70,7 +70,7 @@ server <- function(input, output) {
                 kbl(contracts, format="html",
                     col.names=c("Employer","Mission Type","Pay Multiplier",
                                 "Mission Length","Command","Overhead","Salvage",
-                                "Support","Transport")) %>%
+                                "Support","Transport","Advance","MRBC")) %>%
                 kable_styling()
             HTML(contract_tab)
         }

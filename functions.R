@@ -82,6 +82,10 @@ gen_contract <- function(hall, rating) {
                               employer_mod$Support)
   transport_roll <- trim_roll(roll(2,6)+rating_mod$Transport+mission_mod$Transport+
                                 employer_mod$Transport)
+  advance_roll <- trim_roll(roll(2,6)+rating_mod$Advance+mission_mod$Advance+
+                                employer_mod$Advance)
+  mrbc_roll <- trim_roll(roll(2,6)+rating_mod$MRBC+mission_mod$MRBC+
+                              employer_mod$MRBC+hall_mod$MRBC)
   
   command <- paste(subset(supplemental, Roll==command_roll)$Command, 
                    " (", command_roll, ")", sep="")
@@ -93,11 +97,16 @@ gen_contract <- function(hall, rating) {
                    " (", support_roll, ")", sep="")
   transport <- paste(subset(supplemental, Roll==transport_roll)$Transport, 
                      " (", transport_roll, ")", sep="")
+  advance <- paste(subset(supplemental, Roll==advance_roll)$Advance, 
+                     " (", advance_roll, ")", sep="")
+  mrbc <- paste(subset(supplemental, Roll==mrbc_roll)$MRBC, 
+                   " (", mrbc_roll, ")", sep="")
   
   return(c(employer=employer, mission_type=mission_type, 
            pay_mult=pay_mult, mission_length=mission_length,
            command=command, overhead=overhead, salvage=salvage,
-           support=support, transport=transport))
+           support=support, transport=transport, advance=advance,
+           mrbc=mrbc))
 }
 
 gen_all_contracts <- function(hall, rating) {

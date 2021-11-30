@@ -1,13 +1,13 @@
-| Roll | Command     | Overhead | Salvage  | Support       | Transport |
-|------|-------------|----------|----------|---------------|-----------|
-| 2    | Integrated  | None     | Exchange | None          | None      |
-| 3    | House       | Half     | 10%      | Straight/25%  | 20%       |
-| 4    | House       | Half     | 20%      | Straight/50%  | 30%       |
-| 5    | House       | Half     | 30%      | Straight/75%  | 40%       |
-| 6    | House       | Half     | 40%      | Straight/Full | 50%       |
-| 7    | Liason      | Full     | 50%      | Battle/20%    | 60%       |
-| 8    | Liason      | Full     | 60%      | Battle/40%    | 70%       |
-| 9    | Liason      | Full     | 70%      | Battle/60%    | 80%       |
-| 10   | Independent | Full     | 80%      | Battle/80%    | 90%       |
-| 11   | Independent | Full     | 90%      | Battle/Full   | Full      |
-| 12   | Independent | Full     | Full     | Battle/Full   | Full      |
+| Roll | Command     | Overhead | Salvage  | Support       | Transport | Advance | MRBC | 
+|------|-------------|----------|----------|---------------|-----------|---------|------|
+| 2    | Integrated  | None     | Exchange | None          | None      |  None   |  No  |
+| 3    | House       | Half     | 10%      | Straight/25%  | 10%       |  None   |  No  |
+| 4    | House       | Half     | 20%      | Straight/50%  | 20%       |  None   |  No  |
+| 5    | House       | Half     | 30%      | Straight/75%  | 30%       |  10%    |  No  |
+| 6    | House       | Half     | 40%      | Straight/Full | 40%       |  20%    | Yes  |
+| 7    | Liaison     | Full     | 50%      | Battle/10%    | 50%       |  20%    | Yes  |
+| 8    | Liaison     | Full     | 60%      | Battle/20%    | 60%       |  25%    | Yes  |
+| 9    | Liaison     | Full     | 70%      | Battle/30%    | 70%       |  25%    | Yes  |     
+| 10   | Independent | Full     | 80%      | Battle/40%    | 80%       |  25%    | Yes  |
+| 11   | Independent | Full     | 90%      | Battle/50%    | 90%       |  30%    | Yes  |
+| 12   | Independent | Full     | Full     | Battle/60%    | Full      |  30%    | Yes  |

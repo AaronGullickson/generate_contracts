@@ -175,4 +175,53 @@ To determine supplemental characteristics roll a 2d6 for each column below, appl
 
 ## Step 3: Negotiate contract
 
+### Determine negotiators
 
+To negotiate the contract, first determine the skill level of the other negotiator. This is determined by a 2d6 roll with modifiers listed below based on the employer type.
+
+| Type               | Negotiator |
+|--------------------|------------:|
+| Major Power        |   +2        |
+| Minor Inner Sphere |   +1        |
+| Major Periphery    |   +0        |
+| Minor Periphery    |   -1        |
+| Planetary Gov      |   -1        |
+| Corporation        |   +2        |
+| Mercenary          |   +0        |
+| Private Party      |   -2        |
+
+<br>
+
+| Roll   | Negotiator Skill |
+|--------|------------------|
+| 2-5    | Green (6+)       |
+| 6-8    | Regular (5+)     |
+| 9-10   | Veteran (4+)     |
+| 11-12  | Elite (3+)       |
+
+The player should also have a negotiator which will typically be either be the commanding officer or an administrator. Determine the negotiation skill of this person by whatever means makes sense in your campaign.
+
+### Negotiating points
+
+The player's side has three negotiating points that can be used to potentially shift the value of the contract in some way. Each point can be used to do one of the following:
+
+* Increase the pay multiplier by 0.05 (5%).
+* Increase the length of the contract by a month.
+* Increase the dice roll by one for any supplemental item, except for the MRBC.
+
+Multiple points can be applied to the same thing, but each one is resolved individually.
+
+A negotiator with the *Haggler* perk gets one additional negotiating point.
+
+### The negotiation
+
+When the player decides to negotiate a point, they make an opposed negotiation check with the NPC negotiator. Both roll 2d6 and compare this to their target number. If both fail or both have the same margin of success, then roll again. Otherwise, the winner is the one with the highest margin of success.
+
+If the player wins, then the negotiation was successful and they may adjust the contract. If the opposing negotiator wins, the negotiation is unsuccessful and the contract is unchanged. Either way, a negotiating point is lost.
+
+### Regainining negotiating points
+
+The player may regain a negotiating point by doing the following:
+
+* Decrease the pay multiplier by 0.1 (10%)
+* Decrease the dice roll by two for any supplemental item, except for the MRBC and the Overhead.

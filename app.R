@@ -43,7 +43,9 @@ ui <- fluidPage(
                    tabPanel("Instructions", 
                             includeMarkdown("instructions.md")), 
                    tabPanel("Definitions", 
-                            includeMarkdown("definitions.md"))
+                            includeMarkdown("definitions.md")),
+                   tabPanel("Rationale", 
+                            includeMarkdown("rationale.md"))
                )
         )
     )

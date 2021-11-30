@@ -219,7 +219,7 @@ When the player decides to negotiate a point, they make an opposed negotiation c
 
 If the player wins, then the negotiation was successful and they may adjust the contract. If the opposing negotiator wins, the negotiation is unsuccessful and the contract is unchanged. Either way, a negotiating point is lost.
 
-### Regainining negotiating points
+### Regaining negotiating points
 
 The player may regain a negotiating point by doing the following:
 

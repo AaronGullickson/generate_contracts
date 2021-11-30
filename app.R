@@ -39,7 +39,12 @@ ui <- fluidPage(
         column(10, 
                tabsetPanel(
                    tabPanel("Available Contracts", 
-                            htmlOutput("contract_output")), 
+                            htmlOutput("contract_output"),
+                            HTML("<hr>"),
+                            fluidRow(
+                                column(5, includeMarkdown("negotiation.md")),
+                                column(7, includeMarkdown("tables/supplemental_items.md"))
+                            )), 
                    tabPanel("Instructions", 
                             includeMarkdown("instructions.md")), 
                    tabPanel("Definitions", 

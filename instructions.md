@@ -1,8 +1,10 @@
 ## Instructions for generating monthly contract offers
 
+This generator will automatically apply Steps 1 and 2 detailed below to determine the contracts received by a unit in a given month. The user simply needs to input the hall and unit rating characteristics and hit the generate button. The negotiation described in Step 3 is not part of the automated process.
+
 ### Step 1: Determine number of offers
 
-The number of offers received depends on a non-linear combination of the hiring hall and the unit rating. Poorly-rated units will have a harder time competing with the big fish at the superior hiring halls, while the top-rated units will have trouble finding suitable contracts in the lower tier of hiring halls. Use the following table to determine the modifier applied to the roll.
+The number of offers received depends on a non-linear combination of the hiring hall and the unit rating. Poorly-rated units will have a harder time competing with the big fish at the superior hiring halls, while the top-rated units will have trouble finding suitable contracts in the lower tier of hiring halls. Use Table 1 below to determine the modifier.
 
 | Hall         | No Rating  |     F   |     D   | C       | B       | A        | A*       |
 |--------------|-----------:|--------:|--------:|--------:|--------:|---------:|---------:|
@@ -11,13 +13,12 @@ The number of offers received depends on a non-linear combination of the hiring 
 | Minor        |    -2      |    +0   |    +1   |    +2   |    +1   |    +0    |    -1    |
 | Standard     |    -4      |    -2   |    +0   |    +1   |    +2   |    +1    |    +0    |
 | Great        |    -6      |    -4   |    -2   |    +0   |    +1   |    +2    |    +2    |
+**Table 1:** Modifiers for the number of offers
 
-<br>
 
 A unit that has an administrator or commanding officer with the well-connected perk can add an additional +1 to the modifier.
 
-To find the number of contract offers this month, roll 2d6 and add the modifier. Then consult the following table.
-
+To find the number of contract offers in a month, roll 2d6 and add the modifier calculated above. Then consult Table 2 below.
 
 | Roll          | Offers |
 |---------------|-------:|
@@ -26,39 +27,38 @@ To find the number of contract offers this month, roll 2d6 and add the modifier.
 | 10-11         |     2  |
 | 12-13         |     3  |
 | 14 or more    |     4  |
+**Table 2:** Determine number of offers in a month
 
-<br>
 
 ### Step 2: Determine each contract
 
 #### Step 2a: Determine employer
 
-First, determine the employer modifiers based on hall type and unit rating, using the tables below.
+First, determine the employer modifiers based on hall type and unit rating, using Tables 3 and 4 below.
+
+| Hall         | Employer | MRBC  |
+|--------------|---------:|------:|
+| None         |    -4    |  -8   |
+| Questionable |    -3    |  -4   |
+| Minor        |    -1    |  -1   |
+| Standard     |    +1    |  +1   |
+| Great        |    +2    |  +4   |
+**Table 3:** Hiring hall modifiers
 
 
-| Hall         | Employer |
-|--------------|---------:|
-| None         |    -4    |
-| Questionable |    -3    |
-| Minor        |    -1    |
-| Standard     |    +1    |
-| Great        |    +2    |
+| Rating | Employer | Pay Multipier | Command | Salvage | Support | Transport | Advance | MRBC |
+|--------|---------:|--------------:|--------:|--------:|--------:|----------:|--------:|-----:|
+| None   |    -3    | 0.5           |   -2    |   -1    |   -1    |     -3    |   -2    |  -1  |
+| F      |    -2    | 0.7           |   -1    |   -1    |   -1    |     -2    |   -1    |  -1  |
+| D      |    -1    | 0.8           |   -1    |   +0    |   +0    |     -1    |   -1    |  -1  |
+| C      |    +0    | 0.9           |   +0    |   +0    |   +0    |     +0    |   +0    |  +0  |
+| B      |    +1    | 1.0           |   +1    |   +1    |   +0    |     +0    |   +0    |  +1  |
+| A      |    +2    | 1.1           |   +2    |   +1    |   +1    |     +1    |   +1    |  +1  |
+| A*     |    +2    | 1.15          |   +3    |   +2    |   +2    |     +2    |   +1    |  +1  |
+**Table 4: Unit rating modifiers** 
 
-<br>
 
-| Rating | Employer |
-|--------|---------:|
-| None   |    -3    |
-| F      |    -2    |
-| D      |    -1    |
-| C      |    +0    |
-| B      |    +1    |
-| A      |    +2    |
-| A*     |    +2    |
-
-<br>
-
-Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column of the table. 
+Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column of Table 5 below. 
 
 | Roll       | Employer    | Independent    | Minor              |
 |------------|-------------|----------------|--------------------|
@@ -73,16 +73,16 @@ Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column o
 | 10         | Major Power | Corporation    | Minor Inner Sphere |
 | 11         | Major Power | Corporation    | Minor Inner Sphere |
 | 12 or more | Major Power | Corporation    | Minor Inner Sphere |
+**Table 5:** Employer determination table
 
-<br>
 
 If you get *Independent Employer* or *Minor Power* on this roll, then roll again (with the same modifiers) on the appropriate column to see more exactly what kind of employer you get.
 
-If you get the *Mercenary* result, then this is a subcontract from another mercenary group. Roll again to determine the original employer with a +2 bonus.
+If you get the *Mercenary* result, then this is a subcontract from another mercenary group. Roll again to determine the original employer with a single +2 bonus.
 
 ### Step 2b: Determine Mission Type
 
-Mission type is determined by a straight 2d6 roll. Look on the appropriate column of the table below based on the employer type for the mission type. If you get *Special* or *Covert*, roll again on those columns.
+Mission type is determined by a straight 2d6 roll. Look on the appropriate column of Table 6 below based on the employer type to determine mission type. If you get *Special* or *Covert*, roll again on those columns.
 
 | Roll | Inner Sphere      | Periphery         | Corporation     | Planetary Gov    | Private Party    | Special           | Covert            |
 |------|-------------------|-------------------|-----------------|-------------------|-----------------|-------------------|-------------------|
@@ -97,14 +97,13 @@ Mission type is determined by a straight 2d6 roll. Look on the appropriate colum
 | 10   | Recon Raid        | Planetary Assault | Special         | Pirate Hunting    | Objective Raid  | Guerilla          | Assassination     |
 | 11   | Special           | Special           | Covert          | Planetary Assault | Special         | Guerilla*         | Assassination     |
 | 12   | Covert            | Covert            | Covert          | Special           | Covert          | Covert            | Terrorism         |
+**Table 6:** Mission type determination table  
+\* means that this contract is followed up immediately by a full *Planetary Assault* contract.
 
-<br>
-
-An \* means that this contract is followed up immediately by a full *Planetary Assault* contract.
 
 ### Step 2c: Determine contract characteristics
 
-Use the tables below to to determine pay multiplier, contract length, and supplemental modifiers due to mission type, employer type, and, unit rating. Pay multipliers are multiplied together to determine the final pay multiplier, while supplemental modifiers are summed.
+Use Tables 3, 4, 7, and 8 to determine the total pay multiplier, contract length, and supplemental modifiers due to mission type, employer type, unit rating, and hall. Pay multipliers are multiplied together to determine the final pay multiplier, while supplemental modifiers are summed across tables for the same characteristic.
 
 | Type                | Pay Multiplier |  Length   | Command | Salvage | Support | Transport |
 |---------------------|---------------:|-----------|--------:|--------:|--------:|----------:|
@@ -127,70 +126,45 @@ Use the tables below to to determine pay multiplier, contract length, and supple
 | Sabotage            |    2.0         |  3 months |      -1 |      +4 |      -3 |       -2  |
 | Security Duty       |    1.1         |  6 months |      -3 |      +0 |      +2 |       +1  |
 | Terrorism           |    1.7         |  3 months |      +2 |      +1 |      -1 |       -3  |
+**Table 7:** Mission type modifier table
 
-<br>
 
-| Type               | PayMult | Command | Salvage | Support | Transport |
-|--------------------|--------:|--------:|--------:|--------:|----------:|
-| Major Power        |   1.2   |     -1  |     -1  |      +1 |    +2     |
-| Minor Inner Sphere |   1.0   |     +0  |     -2  |      +0 |    +1     |
-| Major Periphery    |   0.9   |     +0  |     -2  |      +0 |    +0     |
-| Minor Periphery    |   0.75  |     +0  |     -2  |      -1 |    -1     |
-| Planetary Gov      |   0.75  |     +1  |     -1  |      -2 |    -1     |
-| Corporation        |   1.1   |     -1  |     +2  |      +1 |    +1     |
-| Mercenary          |   1.1   |     -1  |     +2  |      +1 |    +1     |
-| Private Party      |   0.7   |     +0  |     +0  |      +0 |    -1     |
+| Type               | Pay Multiplier | Command | Salvage | Support | Transport | Advance | MRBC | Negotiator |
+|--------------------|---------------:|--------:|--------:|--------:|----------:|--------:|-----:|-----------:|
+| Major Power        |   1.2          |     -1  |     -1  |      +1 |    +2     |    +2   |  +2  |      +2    | 
+| Minor Inner Sphere |   1.0          |     +0  |     -2  |      +0 |    +1     |    +1   |  +2  |      +1    |
+| Major Periphery    |   0.9          |     +0  |     -2  |      +0 |    +0     |    +0   |  +1  |      +0    |
+| Minor Periphery    |   0.75         |     +0  |     -2  |      -1 |    -1     |    -1   |  +1  |      -1    |
+| Planetary Gov      |   0.75         |     +1  |     -1  |      -2 |    -1     |    -1   |  +0  |      -1    |
+| Corporation        |   1.1          |     -1  |     +2  |      +1 |    +1     |    +2   |  +0  |      +2    |
+| Mercenary          |   1.1          |     -1  |     +2  |      +1 |    +1     |    -2   |  +0  |      +0    |
+| Private Party      |   0.7          |     +0  |     +0  |      +0 |    -1     |    -2   |  -2  |      -2    |
+**Table 8:** Employer type modifier table
 
-<br>
-
-| Rating | Employer | PayMult | Command | Salvage | Support | Transport |
-|--------|---------:|--------:|--------:|--------:|--------:|----------:|
-| None   |    -3    | 0.5     |   -2    |   -1    |   -1    |     -3    |
-| F      |    -2    | 0.7     |   -1    |   -1    |   -1    |     -2    |
-| D      |    -1    | 0.8     |   -1    |   +0    |   +0    |     -1    |
-| C      |    +0    | 0.9     |   +0    |   +0    |   +0    |     +0    |
-| B      |    +1    | 1.0     |   +1    |   +1    |   +0    |     +0    |
-| A      |    +2    | 1.1     |   +2    |   +1    |   +1    |     +1    |
-| A*     |    +2    | 1.15    |   +3    |   +2    |   +2    |     +2    |
-
-<br>
 
 To determine supplemental characteristics roll a 2d6 for each column below, applying the appropriate modifiers each time. 
 
-| Roll         | Command     | Overhead | Salvage  | Support       | Transport |
-|--------------|-------------|----------|----------|---------------|-----------|
-| 2 or less    | Integrated  | None     | Exchange | None          | None      |
-| 3            | House       | Half     | 10%      | Straight/25%  | 10%       |
-| 4            | House       | Half     | 20%      | Straight/50%  | 20%       |
-| 5            | House       | Half     | 30%      | Straight/75%  | 30%       |
-| 6            | House       | Half     | 40%      | Straight/Full | 40%       |
-| 7            | Liaison     | Full     | 50%      | Battle/10%    | 50%       |
-| 8            | Liaison     | Full     | 60%      | Battle/20%    | 60%       |
-| 9            | Liaison     | Full     | 70%      | Battle/30%    | 70%       |
-| 10           | Independent | Full     | 80%      | Battle/40%    | 80%       |
-| 11           | Independent | Full     | 90%      | Battle/50%    | 90%       |
-| 12 or more   | Independent | Full     | Full     | Battle/60%    | Full      |
+| Roll       | Command     | Overhead | Salvage  | Support       | Transport | Advance | MRBC | 
+|------------|-------------|----------|----------|---------------|-----------|---------|------|
+| 2 or less  | Integrated  | None     | Exchange | None          | None      |  None   |  No  |
+| 3          | House       | Half     | 10%      | Straight/25%  | 10%       |  None   |  No  |
+| 4          | House       | Half     | 20%      | Straight/50%  | 20%       |  None   |  No  |
+| 5          | House       | Half     | 30%      | Straight/75%  | 30%       |  10%    |  No  |
+| 6          | House       | Half     | 40%      | Straight/Full | 40%       |  20%    | Yes  |
+| 7          | Liaison     | Full     | 50%      | Battle/10%    | 50%       |  20%    | Yes  |
+| 8          | Liaison     | Full     | 60%      | Battle/20%    | 60%       |  25%    | Yes  |
+| 9          | Liaison     | Full     | 70%      | Battle/30%    | 70%       |  25%    | Yes  |     
+| 10         | Independent | Full     | 80%      | Battle/40%    | 80%       |  25%    | Yes  |
+| 11         | Independent | Full     | 90%      | Battle/50%    | 90%       |  30%    | Yes  |
+| 12 or more | Independent | Full     | Full     | Battle/60%    | Full      |  30%    | Yes  |
+**Table 9:** Determine Supplemental Contract Characteristics
 
-<br>
 
 ## Step 3: Negotiate contract
 
 ### Determine negotiators
 
-To negotiate the contract, first determine the skill level of the other negotiator. This is determined by a 2d6 roll with modifiers listed below based on the employer type.
-
-| Type               | Negotiator |
-|--------------------|------------:|
-| Major Power        |   +2        |
-| Minor Inner Sphere |   +1        |
-| Major Periphery    |   +0        |
-| Minor Periphery    |   -1        |
-| Planetary Gov      |   -1        |
-| Corporation        |   +2        |
-| Mercenary          |   +0        |
-| Private Party      |   -2        |
-
-<br>
+To negotiate the contract, first determine the skill level of the employer's negotiator. This is determined by a 2d6 roll with a modifier based on employer type as shown in Table 8. Consult Table 10 below to see the skill level of the employer's negotiator.
 
 | Roll   | Negotiator Skill |
 |--------|------------------|
@@ -198,6 +172,8 @@ To negotiate the contract, first determine the skill level of the other negotiat
 | 6-8    | Regular (5+)     |
 | 9-10   | Veteran (4+)     |
 | 11-12  | Elite (3+)       |
+**Table 10:** Determine employer's negotiator skill level
+
 
 The player should also have a negotiator which will typically be either be the commanding officer or an administrator. Determine the negotiation skill of this person by whatever means makes sense in your campaign.
 

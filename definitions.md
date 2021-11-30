@@ -4,12 +4,12 @@
 
 These are the hall types from *Campaign Operations*. Examples of each kind of hall would be:
 
-| Hall          | Examples                             |
-|---------------|--------------------------------------|
-| Questionable  | Antallos (Port Krin), Astrokazy      |
-| Minor         | Fletcher, Herotitus, Solaris VII     |
-| Standard      | Arc Royal, Northwind                 |
-| Great         | Galatea, Outreach                    |
+| Hall          | Examples                                  |
+|---------------|-------------------------------------------|
+| Questionable  | Antallos (Port Krin), Astrokazy, Fletcher |
+| Minor         | Herotitus, Northwind, Westerhand          |
+| Standard      | Arc Royal, Solaris VII                    |
+| Great         | Galatea, Outreach                         |
 
 ### Unit Ratings
 
@@ -24,6 +24,20 @@ I use the Dragoon Ratings. To convert numeric ratings from *Campaign Operations*
 | B              |               6-7  |
 | A              |               8-9  |
 | A*             |              10+   |
+
+### Employer
+
+The generation procedure does not specify a particular employer but rather a type. This creates more flexibility depending on time period. Players could roll for a specific employer among the candidates that make sense in a time period or could just decide on an employer based on the mission and context of the time period. 
+
+| Employer                 | Examples                                                                                        |
+|--------------------------|-------------------------------------------------------------------------------------------------|
+| Major Power              | Great Houses, Comstar, Clans                                                                    |
+| Minor Inner Sphere Power | St. Ives Compact, Word of Blake, Rassalhague Republic, Duchy of Oriente, Terracap Confederation |
+| Major Periphery Power    | Taurus Concordat, Magistracy of Canopus, Outworlds Alliance, Marian Hegemony                    |
+| Minor Periphery Power    | Circinus Federation, Rim Collection, Fronc Reaches, Niops Association, Filtvelt Coalition       |
+| Planetary Government     | Verthandi, Kaumberg, Novo Franklin, New Home,  Sheratan                                         |
+| Corporation              | Interstellar Expeditions, Sitwell Corporation, GM, Lockheed CBM                                 |
+| Private Party            | Chandesakhar Kurita, Duke Dresari, Duke Hassid Ricol, Mr. Askai, Oriente Rockfest               |
 
 ### Pay multiplier
 

@@ -69,9 +69,10 @@ server <- function(input, output) {
             contract_tab <- contracts %>% 
                 select(!(.n)) %>%
                 kbl(contracts, format="html",
-                    col.names=c("Employer","Mission Type","Pay Multiplier",
-                                "Mission Length","Command","Overhead","Salvage",
-                                "Support","Transport","Advance","MRBC")) %>%
+                    col.names=c("Employer","Mission Type","Pay Mult",
+                                "Length","Command","Overhead","Salvage",
+                                "Support","Transport","Advance","MRBC",
+                                "Negotiator")) %>%
                 kable_styling()
             HTML(contract_tab)
         }

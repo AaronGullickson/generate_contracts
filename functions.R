@@ -17,6 +17,15 @@ get_contract_num <- function(bonus) {
                        ifelse(result<14,3,5))))
 }
 
+roll_negotiator <- function(bonus) {
+  
+  result <- roll(2,6)+bonus
+  
+  ifelse(result<6, "Green (6+)",
+         ifelse(result<9, "Regular (5+)",
+                ifelse(result<11, "Veteran (4+)", "Elite (3+)")))
+}
+
 roll_employer <- function(bonus) {
   employer_roll <- trim_roll(roll(2,6)+bonus)
   employer <- subset(employer_tab, Roll==employer_roll)$Employer
@@ -101,12 +110,13 @@ gen_contract <- function(hall, rating) {
                      " (", advance_roll, ")", sep="")
   mrbc <- paste(subset(supplemental, Roll==mrbc_roll)$MRBC, 
                    " (", mrbc_roll, ")", sep="")
+  negotiator <- roll_negotiator(employer_mod$Negotiator)
   
   return(c(employer=employer, mission_type=mission_type, 
            pay_mult=pay_mult, mission_length=mission_length,
            command=command, overhead=overhead, salvage=salvage,
            support=support, transport=transport, advance=advance,
-           mrbc=mrbc))
+           mrbc=mrbc, negotiator=negotiator))
 }
 
 gen_all_contracts <- function(hall, rating) {

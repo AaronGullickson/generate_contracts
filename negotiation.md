@@ -7,6 +7,7 @@ The player's side has three negotiating points that can be used to potentially s
 * Increase the pay multiplier by 0.05 (5%).
 * Increase the length of the contract by a month.
 * Increase the dice roll by one for any supplemental item, except for the MRBC.
+* Shift from exchange salvage rights to full salvage rights.
 
 Multiple points can be applied to the same thing, but each one is resolved individually.
 
@@ -23,4 +24,7 @@ If the player wins, then the negotiation was successful and they may adjust the 
 The player may regain a negotiating point by doing the following:
 
 * Decrease the pay multiplier by 0.1 (10%)
-* Decrease the dice roll by two for any supplemental item, except for the MRBC and the Overhead.
+* Decrease the dice roll by two for any supplemental item, except for the MRBC and the Overhead. 
+* Shift from full salvage rights to exchange salvage rights and reduce the dice roll for salvage by one.
+
+Lowering salvage below a percentage value by these means is equivalent to no salvage. 

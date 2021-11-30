@@ -146,19 +146,21 @@ To determine supplemental characteristics roll a 2d6 for each column below, appl
 
 | Roll       | Command     | Overhead | Salvage  | Support       | Transport | Advance | MRBC | 
 |------------|-------------|----------|----------|---------------|-----------|---------|------|
-| 2 or less  | Integrated  | None     | Exchange | None          | None      |  None   |  No  |
-| 3          | House       | Half     | 10%      | Straight/25%  | 10%       |  None   |  No  |
-| 4          | House       | Half     | 20%      | Straight/50%  | 20%       |  None   |  No  |
-| 5          | House       | Half     | 30%      | Straight/75%  | 30%       |  10%    |  No  |
-| 6          | House       | Half     | 40%      | Straight/Full | 40%       |  20%    | Yes  |
-| 7          | Liaison     | Full     | 50%      | Battle/10%    | 50%       |  20%    | Yes  |
-| 8          | Liaison     | Full     | 60%      | Battle/20%    | 60%       |  25%    | Yes  |
+| 2 or less  | Integrated  | None     | None     | None          | None      |  None   |  No  |
+| 3          | House       | Half     | Exchange | Straight/25%  | 10%       |  None   |  No  |
+| 4          | House       | Half     | Exchange | Straight/50%  | 20%       |  None   |  No  |
+| 5          | House       | Half     | 10%      | Straight/75%  | 30%       |  10%    |  No  |
+| 6          | House       | Half     | 25%      | Straight/Full | 40%       |  20%    | Yes  |
+| 7          | Liaison     | Full     | 40%      | Battle/10%    | 50%       |  20%    | Yes  |
+| 8          | Liaison     | Full     | 55%      | Battle/20%    | 60%       |  25%    | Yes  |
 | 9          | Liaison     | Full     | 70%      | Battle/30%    | 70%       |  25%    | Yes  |     
-| 10         | Independent | Full     | 80%      | Battle/40%    | 80%       |  25%    | Yes  |
-| 11         | Independent | Full     | 90%      | Battle/50%    | 90%       |  30%    | Yes  |
-| 12 or more | Independent | Full     | Full     | Battle/60%    | Full      |  30%    | Yes  |
+| 10         | Independent | Full     | 85%      | Battle/40%    | 80%       |  25%    | Yes  |
+| 11         | Independent | Full     | 100%     | Battle/50%    | 90%       |  30%    | Yes  |
+| 12 or more | Independent | Full     | 100%     | Battle/60%    | 100%      |  30%    | Yes  |
 **Table 9:** Determine Supplemental Contract Characteristics
 
+
+If the *Exchange* option is rolled for salvage, then roll again with the same modifiers until a percentage is given. 
 
 ## Step 3: Negotiate contract
 
@@ -184,6 +186,7 @@ The player's side has three negotiating points that can be used to potentially s
 * Increase the pay multiplier by 0.05 (5%).
 * Increase the length of the contract by a month.
 * Increase the dice roll by one for any supplemental item, except for the MRBC.
+* Shift from exchange salvage rights to full salvage rights.
 
 Multiple points can be applied to the same thing, but each one is resolved individually.
 
@@ -200,4 +203,7 @@ If the player wins, then the negotiation was successful and they may adjust the 
 The player may regain a negotiating point by doing the following:
 
 * Decrease the pay multiplier by 0.1 (10%)
-* Decrease the dice roll by two for any supplemental item, except for the MRBC and the Overhead.
+* Decrease the dice roll by two for any supplemental item, except for the MRBC and the Overhead. 
+* Shift from full salvage rights to exchange salvage rights and reduce the dice roll for salvage by one.
+
+Lowering salvage below a percentage value by these means is equivalent to no salvage. 

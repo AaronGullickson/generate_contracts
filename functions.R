@@ -41,6 +41,16 @@ roll_employer <- function(bonus) {
   return(employer)
 }
 
+roll_salvage_pct <- function(bonus) {
+  salvage <- "Exchange"
+  while(!str_detect(salvage, "%")) {
+    salvage_roll <- trim_roll(roll(2,6)+bonus)
+    salvage <- paste(subset(supplemental, Roll==salvage_roll)$Salvage, 
+                     " (", salvage_roll, "), Exchange", sep="")
+  }
+  return(salvage)
+}
+
 gen_contract <- function(hall, rating) {
   
   #### Load mods ####
@@ -113,6 +123,12 @@ gen_contract <- function(hall, rating) {
   mrbc <- paste(subset(supplemental, Roll==mrbc_roll)$MRBC, 
                    " (", mrbc_roll, ")", sep="")
   negotiator <- roll_negotiator(employer_mod$Negotiator)
+  
+  if(str_detect(salvage, "Exchange")) {
+    #figure out percentage
+    salvage <- roll_salvage_pct(rating_mod$Salvage+mission_mod$Salvage+
+                                  employer_mod$Salvage)
+  }
   
   return(c(employer=employer, mission_type=mission_type, 
            pay_mult=pay_mult, mission_length=mission_length,

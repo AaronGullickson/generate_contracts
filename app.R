@@ -34,6 +34,8 @@ ui <- fluidPage(
                selectInput("rating", h3("Select Rating"), 
                            choices = c("None","F","D","C","B","A","A*"),
                            selected = "C"),
+               checkboxInput("well_connected", "Administrator well-connected", 
+                             value = FALSE),
                actionButton("generate", "Generate Contracts")
         ),
         column(10, 
@@ -67,9 +69,14 @@ server <- function(input, output) {
         input$rating
     })
     
+    well_connected <- eventReactive(input$generate, {
+        input$well_connected
+    })
+    
     output$contract_output <- renderUI({ 
         contracts <- gen_all_contracts(hall(), 
-                                       str_replace(rating(), "A\\*","AA"))
+                                       str_replace(rating(), "A\\*","AA"),
+                                       well_connected())
         if(!is.data.frame(contracts)) {
             HTML("<h4 style='color:red;'>No contracts this month!</h4>")
         } else {

@@ -136,9 +136,10 @@ gen_contract <- function(hall, rating) {
            mrbc=mrbc, negotiator=negotiator))
 }
 
-gen_all_contracts <- function(hall, rating) {
+gen_all_contracts <- function(hall, rating, well_connected) {
   
-  offer_mod <- subset(offer_mods, Hall==hall & Rating==rating)$Mod
+  offer_mod <- subset(offer_mods, Hall==hall & Rating==rating)$Mod+
+    well_connected
   n_offer <- get_contract_num(offer_mod)
   if(n_offer==0) {
     return(NA)

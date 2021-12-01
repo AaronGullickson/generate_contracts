@@ -1,0 +1,310 @@
+---
+title: "Analysis"
+author: "Aaron Gullickson"
+date: "12/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(read.so)
+library(tidyr)
+library(stringr)
+library(purrr)
+library(knitr)
+library(markdown)
+library(kableExtra)
+library(ggplot2)
+library(ggthemes)
+source("read_tables.R")
+source("functions.R")
+```
+
+## Contract Length
+
+I could figure this out analytically, but so easy to monte carlo it. 
+
+```{r}
+results <- map(-3:3, function(x) {unlist(rerun(1000, get_contract_num(x)))})
+names(results) <- paste(-3:3)
+results <- bind_rows(results) %>%
+  pivot_longer(cols=paste(-3:3), names_to="modifier", values_to="ncontract") %>%
+  mutate(modifier=factor(modifier, levels=-3:3))
+ggplot(results, aes(x=ncontract, y=..prop..))+
+  geom_bar()+
+  facet_wrap(~modifier)+
+  scale_y_continuous(labels=scales::percent)+
+  labs(x="number of contracts", y="percent",
+       title="Distribution of number of contracts received by month based on modifier")+
+  theme_bw()
+```
+
+```{r}
+convert_percent <- function(x) {
+  x <- case_when(
+    str_detect(x, "None") ~ "0",
+    str_detect(x, "Full") ~ "0",
+    TRUE ~ str_split_fixed(x, "%", 2)[,1]
+  )
+  return(as.numeric(x))
+}
+
+remove_parenthesis <- function(x) {
+  str_remove(x, "\\s*\\([^\\)]+\\)")
+}
+
+input <- expand_grid(hall=c("None","Questionable","Minor","Standard","Great"),
+                       rating=c("None","F","D","C","B","A","AA")) %>%
+  mutate(id=paste(1:35))
+
+results <- input %>%
+  pmap_dfr(function(...) {
+    current <- tibble(...)
+    rerun(1000, gen_contract(current$hall, current$rating)) %>%
+      bind_rows()
+  }, .id="id") %>%
+  left_join(input) %>% mutate(
+    rating=factor(rating, 
+                  levels=c("None","F","D","C","B","A","AA"),
+                  labels=c("None","F","D","C","B","A","A*")),
+    hall=factor(hall,
+                levels=c("None","Questionable","Minor","Standard","Great")),
+    employer=factor(remove_parenthesis(employer),
+                    levels=c("Private Party","Planetary Gov","Mercenary",
+                             "Corporation","Minor Periphery","Major Periphery",
+                             "Minor Inner Sphere","Major Power")),
+    mission_type=str_remove(mission_type, "\\*"),
+    pay_mult=as.numeric(pay_mult),
+    mission_length=as.numeric(str_remove(mission_length, " months")),
+    command=factor(remove_parenthesis(command),
+                   levels=c("Integrated","House","Liaison","Independent")),
+    overhead=factor(remove_parenthesis(overhead),
+                    levels=c("None","Half","Full")),
+    salvage_type=factor(case_when(
+      str_detect(salvage, "None") ~ "None",
+      str_detect(salvage, "Exchange") ~ "Exchange",
+      TRUE ~ "Full"), levels=c("None","Exchange","Full")),
+    salvage_pct=convert_percent(salvage),
+    support_type=factor(case_when(
+      str_detect(support, "None") ~ "None",
+      str_detect(support, "Straight") ~ "Straight",
+      TRUE ~ "BLC"), levels=c("None","Straight","BLC")),
+    support_pct=as.numeric(case_when(
+      str_detect(support, "None") ~ "0",
+      str_detect(support, "Full") ~ "100",
+      TRUE ~ str_split_fixed(str_split_fixed(support, "/", n=2)[,2], "%", n=2)[,1]
+    )),
+    transport_pct=convert_percent(transport),
+    advance_pct=convert_percent(advance),
+    mrbc=ifelse(str_detect(mrbc, "No"), FALSE,TRUE),
+    negotiator=factor(remove_parenthesis(negotiator),
+                      levels=c("Green","Regular","Veteran","Elite"))) %>%
+  select(hall, rating, employer, mission_type, pay_mult, mission_length, command, overhead,
+         salvage_type, salvage_pct, support_type, support_pct, transport_pct, advance_pct, 
+         mrbc, negotiator)
+```
+
+```{r}
+results_grp <- results %>%
+  group_by(hall, rating) %>%
+  summarise(mean_pay_mult=mean(pay_mult),
+            mean_length=mean(mission_length),
+            mean_transport_pct=mean(transport_pct),
+            pct_mrbc=mean(mrbc))
+
+#salvage results need to be by salvage type
+results_salvage <- results %>%
+  group_by(hall, rating, salvage_type) %>%
+  summarise(mean_salvage_pct=mean(salvage_pct)) %>%
+  filter(salvage_type!="None")
+
+#support results need to be by support type
+results_support <- results %>%
+  group_by(hall, rating, support_type) %>%
+  summarise(mean_support_pct=mean(support_pct)) %>%
+  filter(support_type!="None")
+```
+
+
+```{r}
+results_grp %>%
+  ggplot(aes(x=rating, y=mean_pay_mult, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  labs(y="average payment multiplier", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  theme_ipsum()
+```
+
+```{r}
+results_grp %>%
+  ggplot(aes(x=rating, y=mean_length, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  theme_ipsum()
+```
+
+```{r}
+results_salvage %>%
+  ggplot(aes(x=rating, y=mean_salvage_pct/100, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  facet_wrap(~salvage_type)+
+  labs(x="force rating", y="average salvage percent", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  #scale_color_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=hall, fill=hall))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x="salvage type", y="percent", fill="Hiring hall")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=rating, fill=rating))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x="salvage type", y="percent", fill="Force rating")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=1))+
+  geom_bar(position = "dodge", color=NA)+
+  facet_grid(rating~hall)+
+  labs(x="salvage type", y="percent", fill="Force rating")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results_support %>%
+  ggplot(aes(x=rating, y=mean_support_pct/100, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  facet_wrap(~support_type)+
+  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  scale_y_continuous(labels = scales::percent)+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=support_type, y=..prop.., group=hall, fill=hall))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x="support type", y="percent", fill="Hiring hall")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=support_type, y=..prop.., group=rating, fill=rating))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x="support type", y="percent", fill="Force rating")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+```{r}
+results %>%
+  ggplot(aes(x=support_type, y=..prop.., group=1))+
+  geom_bar(position = "dodge", color=NA)+
+  facet_grid(rating~hall)+
+  labs(x="support type", y="percent", fill="Force rating")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+
+```{r}
+results_grp %>%
+  ggplot(aes(x=rating, y=mean_transport_pct/100, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  scale_y_continuous(labels = scales::percent)+
+  theme_ipsum()
+```
+
+```{r}
+results_grp %>%
+  ggplot(aes(x=rating, y=pct_mrbc, group=hall, color=hall))+
+  geom_line()+
+  geom_point()+
+  labs(y="percent MRBC", color="Hiring hall")+
+  scale_color_westeros("Targaryen")+
+  scale_y_continuous(labels = scales::percent)+
+  theme_ipsum()
+```
+
+
+```{r}
+results %>%
+  ggplot(aes(x=employer, y=..prop.., group=1))+
+  geom_bar()+
+  labs(x=NULL, y="percent", fill="Force rating")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=employer, y=..prop.., group=1))+
+  geom_bar()+
+  labs(x=NULL, y="percent", fill="Force rating")+
+  facet_grid(rating~hall)+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+This looks pretty good, but a couple of issues to address:
+
+* I think corporations are showing up far too little here. 
+* I also think planetary governments show up a little too low relative to private parties. Those should be a little more balanced
+* The effect of higher halls and higher rating combined might make that end of the distribution a little boring as its usually great houses. 
+
+```{r}
+results %>%
+  ggplot(aes(x=reorder(mission_type, mission_type, length), y=..prop.., group=1))+
+  geom_bar()+
+  labs(x=NULL, y="percent", fill="Force rating")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r}
+results %>%
+  ggplot(aes(x=reorder(mission_type, mission_type, length), y=..prop.., group=1))+
+  geom_bar()+
+  facet_grid(rating~hall)+
+  labs(x=NULL, y="percent", fill="Force rating")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```

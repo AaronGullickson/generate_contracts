@@ -12,6 +12,7 @@ library(dplyr)
 library(read.so)
 library(tidyr)
 library(stringr)
+library(purrr)
 library(knitr)
 library(markdown)
 library(kableExtra)
@@ -81,7 +82,6 @@ server <- function(input, output) {
             HTML("<h4 style='color:red;'>No contracts this month!</h4>")
         } else {
             contract_tab <- contracts %>% 
-                select(!(.n)) %>%
                 kbl(contracts, format="html",
                     col.names=c("Employer","Mission Type","Pay Mult",
                                 "Length","Command","Overhead","Salvage",

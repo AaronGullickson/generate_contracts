@@ -144,5 +144,5 @@ gen_all_contracts <- function(hall, rating, well_connected) {
   if(n_offer==0) {
     return(NA)
   }
-  plyr::rdply(n_offer, gen_contract(hall, rating))
+  bind_rows(rerun(n_offer, gen_contract(hall, rating)))
 }

@@ -6,7 +6,7 @@
 | Espionage           |    1.9  | 12 months |      -1 |      +4 |      -3 |       -2  |    +0   |  -1  |
 | Extraction Raid     |    1.5  |  3 months |      -1 |      -1 |      +2 |       +1  |    +0   |  +1  |
 | Garrison Duty       |    1.0  | 18 months |      +1 |      +0 |      +1 |       +0  |    +0   |  +1  |
-| Guerilla            |    2.0  | 24 months |      -2 |      +3 |      -2 |       -1  |    +0   |  +0  |
+| Guerrilla           |    2.0  | 24 months |      -2 |      +3 |      -2 |       -1  |    +0   |  +0  |
 | Mole Hunting        |    1.0  |  6 months |      -3 |      +0 |      +2 |       +1  |    +0   |  -1  |
 | Objective Raid      |    1.5  |  3 months |      -1 |      +0 |      +2 |       +1  |    +0   |  +1  |
 | Observation Raid    |    1.5  |  3 months |      -1 |      -2 |      +1 |       -1  |    +0   |  +1  |

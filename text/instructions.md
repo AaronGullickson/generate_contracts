@@ -37,8 +37,8 @@ First, determine the employer modifiers based on hall type and unit rating, usin
 
 | Hall         | Employer | MRBC  |
 |--------------|---------:|------:|
-| None         |    -4    |  -8   |
-| Questionable |    -3    |  -4   |
+| None         |    -3    |  -8   |
+| Questionable |    -2    |  -4   |
 | Minor        |    -1    |  -1   |
 | Standard     |    +1    |  +1   |
 | Great        |    +2    |  +4   |
@@ -64,14 +64,14 @@ Then make a 2d6 roll, adding both modifiers, and consult the "Employer" column o
 | 2 or less  | Independent | Private Party  | Minor Periphery    |
 | 3          | Independent | Private Party  | Minor Periphery    |
 | 4          | Independent | Private Party  | Minor Periphery    |
-| 5          | Independent | Private Party  | Minor Periphery    |
+| 5          | Independent | Private Party  | Major Periphery    |
 | 6          | Minor Power | Planetary Gov  | Major Periphery    |
 | 7          | Minor Power | Planetary Gov  | Major Periphery    |
 | 8          | Minor Power | Planetary Gov  | Major Periphery    |
-| 9          | Major Power | Mercenary      | Minor Inner Sphere |
-| 10         | Major Power | Corporation    | Minor Inner Sphere |
-| 11         | Major Power | Corporation    | Minor Inner Sphere |
-| 12 or more | Major Power | Corporation    | Minor Inner Sphere |
+| 9          | Corporation | Planetary Gov  | Minor Inner Sphere |
+| 10         | Major Power | Planetary Gov  | Minor Inner Sphere |
+| 11         | Major Power | Mercenary      | Minor Inner Sphere |
+| 12 or more | Major Power | Mercenary      | Minor Inner Sphere |
 **Table 5:** Employer determination table
 
 
@@ -85,16 +85,16 @@ Mission type is determined by a straight 2d6 roll. Look on the appropriate colum
 
 | Roll | Inner Sphere      | Periphery         | Corporation     | Planetary Gov    | Private Party    | Special           | Covert            |
 |------|-------------------|-------------------|-----------------|-------------------|-----------------|-------------------|-------------------|
-| 2    | Pirate Hunting    | Riot Duty         | Cadre Duty      | Riot Duty         | Cadre Duty      | Cadre Duty        | Mole Hunting      |
-| 3    | Cadre Duty        | Cadre Duty        | Cadre Duty      | Cadre Duty        | Cadre Duty      | Riot Duty         | Observation Raid  |
+| 2    | Pirate Hunting    | Riot Duty         | Riot Duty       | Riot Duty         | Cadre Duty      | Cadre Duty        | Mole Hunting      |
+| 3    | Cadre Duty        | Cadre Duty        | Cadre Duty      | Cadre Duty        | Retainer        | Riot Duty         | Observation Raid  |
 | 4    | Garrison Duty     | Garrison Duty     | Garrison Duty   | Security Duty     | Garrison Duty   | Security Duty     | Observation Raid  |
 | 5    | Garrison Duty     | Garrison Duty     | Garrison Duty   | Garrison Duty     | Garrison Duty   | Retainer          | Recon Raid        |
 | 6    | Extraction Raid   | Pirate Hunting    | Security Duty   | Garrison Duty     | Security Duty   | Extraction Raid   | Diversionary Raid | 
-| 7    | Objective Raid    | Objective Raid    | Objective Raid  | Garrison Duty     | Security Duty   | Recon Raid*       | Guerilla          |
+| 7    | Objective Raid    | Objective Raid    | Objective Raid  | Garrison Duty     | Security Duty   | Recon Raid*       | Guerrilla         |
 | 8    | Objective Raid    | Objective Raid    | Extraction Raid | Extraction Raid   | Extraction Raid | Relief Duty       | Sabotage          |
 | 9    | Planetary Assault | Extraction Raid   | Recon Raid      | Recon Raid        | Recon Raid      | Diversionary Raid | Espionage         |
-| 10   | Recon Raid        | Planetary Assault | Special         | Pirate Hunting    | Objective Raid  | Guerilla          | Assassination     |
-| 11   | Special           | Special           | Covert          | Planetary Assault | Special         | Guerilla*         | Assassination     |
+| 10   | Recon Raid        | Planetary Assault | Retainer        | Pirate Hunting    | Objective Raid  | Guerrilla         | Assassination     |
+| 11   | Special           | Special           | Special         | Planetary Assault | Special         | Guerrilla*        | Assassination     |
 | 12   | Covert            | Covert            | Covert          | Special           | Covert          | Covert            | Terrorism         |
 **Table 6:** Mission type determination table  
 \* means that this contract is followed up immediately by a full *Planetary Assault* contract.
@@ -104,27 +104,27 @@ Mission type is determined by a straight 2d6 roll. Look on the appropriate colum
 
 Use Tables 3, 4, 7, and 8 to determine the total pay multiplier, contract length, and supplemental modifiers due to mission type, employer type, unit rating, and hall. Pay multipliers are multiplied together to determine the final pay multiplier, while supplemental modifiers are summed across tables for the same characteristic.
 
-| Type                | Pay Multiplier |  Length   | Command | Salvage | Support | Transport |
-|---------------------|---------------:|-----------|--------:|--------:|--------:|----------:|
-| Assassination       |    1.7         |  3 months |      +2 |      +1 |      -1 |       -2  |
-| Cadre Duty          |    0.8         | 12 months |      +0 |      +0 |      +1 |       +0  |
-| Diversionary Raid   |    1.6         |  3 months |      +0 |      +2 |      +2 |       +1  |
-| Espionage           |    1.9         | 12 months |      -1 |      +4 |      -3 |       -2  |
-| Extraction Raid     |    1.5         |  3 months |      -1 |      -1 |      +2 |       +1  |
-| Garrison Duty       |    1.0         | 18 months |      +1 |      +0 |      +1 |       +0  |
-| Guerilla            |    2.0         | 24 months |      -2 |      +3 |      -2 |       -1  |
-| Mole Hunting        |    1.0         |  6 months |      -3 |      +0 |      +2 |       +1  |
-| Objective Raid      |    1.5         |  3 months |      -1 |      +0 |      +2 |       +1  |
-| Observation Raid    |    1.5         |  3 months |      -1 |      -2 |      +1 |       -1  |
-| Pirate Hunting      |    1.1         |  6 months |      +2 |      +2 |      -1 |       -1  |
-| Planetary Assault   |    1.4         |  9 months |      -2 |      +0 |      +2 |       +3  |
-| Recon Raid          |    1.5         |  3 months |      -1 |      -2 |      +1 |       -1  |
-| Relief Duty         |    1.4         |  9 months |      -1 |      +1 |      +1 |       +1  |
-| Retainer            |    1.2         | 12 months |      -2 |      +0 |      +2 |       +1  |
-| Riot Duty           |    1.0         |  4 months |      -2 |      +1 |      +2 |       +0  |
-| Sabotage            |    2.0         |  3 months |      -1 |      +4 |      -3 |       -2  |
-| Security Duty       |    1.1         |  6 months |      -3 |      +0 |      +2 |       +1  |
-| Terrorism           |    1.7         |  3 months |      +2 |      +1 |      -1 |       -3  |
+| Type                | Pay Mult |  Length   | Command | Salvage | Support | Transport | Advance | MRBC | 
+|---------------------|---------:|-----------|--------:|--------:|--------:|----------:|--------:|-----:|
+| Assassination       |    1.7   |  3 months |      +2 |      +1 |      -1 |       -2  |    +0   |  -12 |
+| Cadre Duty          |    0.8   | 12 months |      +0 |      +0 |      +1 |       +0  |    -1   |  +0  |
+| Diversionary Raid   |    1.6   |  3 months |      +0 |      +2 |      +2 |       +1  |    +0   |  +1  |
+| Espionage           |    1.9   | 12 months |      -1 |      +4 |      -3 |       -2  |    +0   |  -1  |
+| Extraction Raid     |    1.5   |  3 months |      -1 |      -1 |      +2 |       +1  |    +0   |  +1  |
+| Garrison Duty       |    1.0   | 18 months |      +1 |      +0 |      +1 |       +0  |    +0   |  +1  |
+| Guerrilla           |    2.0   | 24 months |      -2 |      +3 |      -2 |       -1  |    +0   |  +0  |
+| Mole Hunting        |    1.0   |  6 months |      -3 |      +0 |      +2 |       +1  |    +0   |  -1  |
+| Objective Raid      |    1.5   |  3 months |      -1 |      +0 |      +2 |       +1  |    +0   |  +1  |
+| Observation Raid    |    1.5   |  3 months |      -1 |      -2 |      +1 |       -1  |    +0   |  +1  |
+| Pirate Hunting      |    1.1   |  6 months |      +2 |      +2 |      -1 |       -1  |    +0   |  +0  |
+| Planetary Assault   |    1.4   |  9 months |      -2 |      +0 |      +2 |       +3  |    +1   |  +1  |
+| Recon Raid          |    1.5   |  3 months |      -1 |      -2 |      +1 |       -1  |    +0   |  +1  |
+| Relief Duty         |    1.4   |  9 months |      -1 |      +1 |      +1 |       +1  |    +0   |  +1  |
+| Retainer            |    1.2   | 12 months |      -2 |      +0 |      +2 |       +1  |    +0   |  +0  |
+| Riot Duty           |    1.0   |  4 months |      -2 |      +1 |      +2 |       +0  |    +0   |  +0  |
+| Sabotage            |    2.0   |  3 months |      -1 |      +4 |      -3 |       -2  |    +0   |  -1  |
+| Security Duty       |    1.1   |  6 months |      -3 |      +0 |      +2 |       +1  |    +0   |  +0  |
+| Terrorism           |    1.7   |  3 months |      +2 |      +1 |      -1 |       -3  |    +0   |  -12 |
 **Table 7:** Mission type modifier table
 
 

@@ -42,15 +42,15 @@ ui <- fluidPage(
                             htmlOutput("contract_output"),
                             HTML("<hr>"),
                             fluidRow(
-                                column(5, includeMarkdown("negotiation.md")),
+                                column(5, includeMarkdown("text/negotiation.md")),
                                 column(7, includeMarkdown("tables/supplemental_items.md"))
                             )), 
                    tabPanel("Instructions", 
-                            includeMarkdown("instructions.md")), 
+                            includeMarkdown("text/instructions.md")), 
                    tabPanel("Definitions", 
-                            includeMarkdown("definitions.md")),
+                            includeMarkdown("text/definitions.md")),
                    tabPanel("Rationale", 
-                            includeMarkdown("rationale.md"))
+                            includeMarkdown("text/rationale.md"))
                )
         )
     )

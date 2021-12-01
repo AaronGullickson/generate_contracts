@@ -1,6 +1,6 @@
 | Type                | PayMult |  Length   | Command | Salvage | Support | Transport | Advance | MRBC | 
 |---------------------|--------:|-----------|--------:|--------:|--------:|----------:|--------:|-----:|
-| Assassination       |    1.7  |  3 months |      +2 |      +1 |      -1 |       -2  |    +0   |  -2  |
+| Assassination       |    1.7  |  3 months |      +2 |      +1 |      -1 |       -2  |    +0   |  -12 |
 | Cadre Duty          |    0.8  | 12 months |      +0 |      +0 |      +1 |       +0  |    -1   |  +0  |
 | Diversionary Raid   |    1.6  |  3 months |      +0 |      +2 |      +2 |       +1  |    +0   |  +1  |
 | Espionage           |    1.9  | 12 months |      -1 |      +4 |      -3 |       -2  |    +0   |  -1  |
@@ -18,4 +18,4 @@
 | Riot Duty           |    1.0  |  4 months |      -2 |      +1 |      +2 |       +0  |    +0   |  +0  |
 | Sabotage            |    2.0  |  3 months |      -1 |      +4 |      -3 |       -2  |    +0   |  -1  |
 | Security Duty       |    1.1  |  6 months |      -3 |      +0 |      +2 |       +1  |    +0   |  +0  |
-| Terrorism           |    1.7  |  3 months |      +2 |      +1 |      -1 |       -3  |    +0   |  -2  |
+| Terrorism           |    1.7  |  3 months |      +2 |      +1 |      -1 |       -3  |    +0   |  -12 |

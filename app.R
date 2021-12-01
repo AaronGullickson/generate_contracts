@@ -21,7 +21,7 @@ source("functions.R")
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     #CSS
-    includeCSS("custom.css"),
+    includeCSS("www/custom.css"),
 
     # Application title
     titlePanel("Mercenary Contract Generator"),

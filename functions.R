@@ -11,10 +11,9 @@ get_contract_num <- function(bonus) {
   
   result <- roll(2,6)+bonus
   
-  ifelse(result<7, 0,
+  ifelse(result<8, 0,
          ifelse(result<10,1,
-                ifelse(result<12,2,
-                       ifelse(result<14,3,5))))
+                ifelse(result<12,2,3)))
 }
 
 roll_negotiator <- function(bonus) {

@@ -8,11 +8,11 @@ The number of offers received depends on a non-linear combination of the hiring 
 
 | Hall         | No Rating  |     F   |     D   | C       | B       | A        | A*       |
 |--------------|-----------:|--------:|--------:|--------:|--------:|---------:|---------:|
-| None         |    -3      |    -3   |    -3   |    -3   |    -3   |    -3    |    -3    |
+| None         |    -2      |    -2   |    -2   |    -2   |    -2   |    -2    |    -2    |
 | Questionable |    +0      |    +1   |    +2   |    +1   |    +0   |    -1    |    -2    |
-| Minor        |    -2      |    +0   |    +1   |    +2   |    +1   |    +0    |    -1    |
-| Standard     |    -4      |    -2   |    +0   |    +1   |    +2   |    +1    |    +0    |
-| Great        |    -6      |    -4   |    -2   |    +0   |    +1   |    +2    |    +2    |
+| Minor        |    -1      |    +0   |    +1   |    +2   |    +1   |    +0    |    -1    |
+| Standard     |    -2      |    -1   |    +0   |    +1   |    +2   |    +1    |    +0    |
+| Great        |    -3      |    -2   |    -1   |    +0   |    +1   |    +2    |    +2    |
 **Table 1:** Modifiers for the number of offers
 
 
@@ -22,11 +22,10 @@ To find the number of contract offers in a month, roll 2d6 and add the modifier 
 
 | Roll          | Offers |
 |---------------|-------:|
-| 6 or less     |     0  |
-| 7-9           |     1  |
+| 7 or less     |     0  |
+| 8-9           |     1  |
 | 10-11         |     2  |
-| 12-13         |     3  |
-| 14 or more    |     4  |
+| 12 or more    |     3  |
 **Table 2:** Determine number of offers in a month
 
 

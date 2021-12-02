@@ -7,7 +7,17 @@
 #    http://shiny.rstudio.com/
 #
 
+#need to reload the libraries anyway for shinyapps.io
 source("check_packages.R")
+library(shiny)
+library(dplyr)
+library(read.so)
+library(tidyr)
+library(stringr)
+library(purrr)
+library(knitr)
+library(markdown)
+library(kableExtra)
 source("read_tables.R")
 source("functions.R")
 

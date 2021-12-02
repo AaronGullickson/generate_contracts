@@ -28,3 +28,8 @@ The player may regain a negotiating point by doing the following:
 * Shift from full salvage rights to exchange salvage rights and reduce the dice roll for salvage by one.
 
 Lowering salvage below a percentage value by these means is equivalent to no salvage. 
+
+
+## Want to modify something?
+
+This is a [Shiny App](https://shiny.rstudio.com/) written in R. The app can be run locally through RStudio. The source code for this app is freely available on [GitHub](https://github.com/AaronGullickson/generate_contracts). Feel free to fork and modify to your heart's content. 

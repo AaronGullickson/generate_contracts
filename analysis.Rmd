@@ -1,12 +1,11 @@
 ---
 title: "Analysis"
-author: "Aaron Gullickson"
 date: "12/1/2021"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
 library(dplyr)
 library(read.so)
 library(tidyr)
@@ -17,30 +16,60 @@ library(markdown)
 library(kableExtra)
 library(ggplot2)
 library(ggthemes)
+library(hrbrthemes)
+library(tvthemes)
+library(ggpomological)
 source("read_tables.R")
 source("functions.R")
 ```
 
+## Introduction
+
+This document uses Monte Carlo simulation to analyze the contract generation process to make sure it is producing reasonable results.
+
 ## Contract Length
 
-I could figure this out analytically, but so easy to monte carlo it. 
+Contract length varies by a combination of unit rating and hiring hall, but this ultimately produces a modifier that ranges from -3 to +3. I could calculate this analytically but its super easy to sim it, so I just rolled 1000 times at each modifier to explore the difference. 
 
-```{r}
+```{r monte-carlo-ncontracts}
 results <- map(-3:3, function(x) {unlist(rerun(1000, get_contract_num(x)))})
 names(results) <- paste(-3:3)
 results <- bind_rows(results) %>%
   pivot_longer(cols=paste(-3:3), names_to="modifier", values_to="ncontract") %>%
   mutate(modifier=factor(modifier, levels=-3:3))
+```
+
+```{r dist-ncontracts}
 ggplot(results, aes(x=ncontract, y=..prop..))+
   geom_bar()+
   facet_wrap(~modifier)+
   scale_y_continuous(labels=scales::percent)+
-  labs(x="number of contracts", y="percent",
-       title="Distribution of number of contracts received by month based on modifier")+
-  theme_bw()
+  labs(x="number of contracts per month", y="percent",
+       title="Distribution of number of contracts based on modifier")+
+  theme_ipsum()
 ```
 
-```{r}
+Its pretty clear that the modifier has a substantial effect. A merc unit with a -3 will rarely get no contracts in a month about 90% of the time, while a merc unit with a +3 will only go contractless about 16% of the time. 
+
+I can also plot this as the average number of contracts per month. 
+
+```{r mean-contracts}
+results %>%
+  group_by(modifier) %>%
+  summarise(mean_contracts=mean(ncontract)) %>%
+  ggplot(aes(x=modifier, y=mean_contracts, group=1))+
+  geom_line()+
+  geom_point()+
+  labs(x="modifier", y="mean contracts per month",
+       tittle="Mean contracts per month by modifier")+
+  theme_ipsum()
+```
+
+## Contract Characteristics
+
+To figure out the distribution of contract characteristics, I consider every possible combination of rating and hiring hall (35 in total) and for each combination I simulate 1000 contracts. From this full dataset of 35,000 observations, I can extract information about how things are related. The overall dataset is not necessarily the "average" in the universe because I am equally weighting every combination of hall and rating which is not realistic.
+
+```{r monte-carlo-contracts}
 convert_percent <- function(x) {
   x <- case_when(
     str_detect(x, "None") ~ "0",
@@ -105,7 +134,7 @@ results <- input %>%
          mrbc, negotiator)
 ```
 
-```{r}
+```{r group-results}
 results_grp <- results %>%
   group_by(hall, rating) %>%
   summarise(mean_pay_mult=mean(pay_mult),
@@ -124,187 +153,300 @@ results_support <- results %>%
   group_by(hall, rating, support_type) %>%
   summarise(mean_support_pct=mean(support_pct)) %>%
   filter(support_type!="None")
+
+results_employer <- results %>%
+  group_by(employer) %>%
+  summarise(mean_pay_mult=mean(pay_mult),
+            pct_mrbc=mean(mrbc))
 ```
 
+### Contract payments
 
-```{r}
+First, I look at the the average payment multiplier by the force rating and hiring hall.
+
+```{r average-payment}
 results_grp %>%
   ggplot(aes(x=rating, y=mean_pay_mult, group=hall, color=hall))+
   geom_line()+
   geom_point()+
-  labs(y="average payment multiplier", color="Hiring hall")+
+  labs(y="average payment multiplier", color="Hiring hall",
+       title="Payment multiplier by force rating and hiring hall")+
   scale_color_westeros("Targaryen")+
   theme_ipsum()
 ```
 
-```{r}
+The results here make sense. Average payments increase by force ratings, some of which is directly built into the rating modifiers, and some of which happens indirectly through contract and employer types. Hiring hall also matters. Each quality increase in the hiring hall leads to higher payouts. The effect here is indirect through the kinds of contracts offered and the employers because hiring hall does not directly give a payment multiplier. 
+
+Its interesting that the three lowest categories of hiring hall don't make much difference in pay at the lowest ends of force rating. That difference grows with force quality. I am guessing that is probably driven by employer shifts.
+
+I also want to look directly at how much employers pay.
+
+```{r payment-employer}
+results_employer %>%
+  ggplot(aes(x=reorder(employer, mean_pay_mult, mean), y=mean_pay_mult))+
+  geom_col()+
+  labs(x=NULL, y="average payment multiplier", color="Hiring hall",
+       title="Pay multiplier by employer")+
+  theme_ipsum()+
+  coord_flip()
+```
+
+That looks like what I want. Note that these modifiers are substantially more heterogenous than the direct employer pay multipliers because they also reflect different mission type distributions and unit ratings. The only thing that might bug me a little there is the big drop off from Minor Inner Sphere to Major Periphery. 
+
+### Contract Length
+
+```{r contract-length}
 results_grp %>%
   ggplot(aes(x=rating, y=mean_length, group=hall, color=hall))+
   geom_line()+
   geom_point()+
-  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  labs(x="force rating", y="average transport percent", color="Hiring hall",
+       title="Average contract length by unit rating and hiring hall")+
   scale_color_westeros("Targaryen")+
   theme_ipsum()
 ```
 
-```{r}
+Overall, there isn't a lot of variation here and its pretty noisy. There is no clear advantage to higher rated units or better hiring halls. In fact, the shortest contracts are highly rated units at the top halls. I think this partly due to a shift from garrison duty (which is 12 months) to objective raids (which are 3 months).
+
+### Salvage
+
+First, lets look at who gets full salvage vs. exchange by hiring hall and force rating.
+
+```{r salvage-hall}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=hall, fill=hall))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x=NULL, y="percent", fill="Hiring hall",
+       title="Distribution of salvage typy by hiring hall")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+```{r salvage-rating}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=rating, fill=rating))+
+  geom_bar(position = "dodge", color=NA)+
+  labs(x=NULL, y="percent", fill="Force rating",
+       title="Distribution of salvage type by force rating")+
+  scale_fill_pomological()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+To some extent these two things work in opposite directions. Higher quality hiring halls are less slightly less likely to give salvage rights at all, while higher rated forces are more likely to get full salvage in comparison to both exchange and none. The hiring hall effect likely reflects the dominance of major powers in the top halls, because major powers are more stingy about salvage. I think its ok.
+
+I should also try to look at this by both hall and rating at once, although the figure is quite large.
+
+
+```{r salvage-rating-hall, fig.height=10, fig.width=8}
+results %>%
+  ggplot(aes(x=salvage_type, y=..prop.., group=1))+
+  geom_bar(position = "dodge", color=NA)+
+  facet_grid(rating~hall)+
+  labs(x=NULL, y="percent",
+       title="Salvage type by force rating and hiring hall")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+The figure generally shows what I would expect. Force ratings are more important than hiring hall in determining the type of salvage rights.
+
+Now, given that a contract has a kind of salvage rights, I want to look at the average percent of salvage given across force rating and hiring hall. I want to do this separately for exchange and full salvage rights.
+
+```{r salvage-pct}
 results_salvage %>%
   ggplot(aes(x=rating, y=mean_salvage_pct/100, group=hall, color=hall))+
   geom_line()+
   geom_point()+
   facet_wrap(~salvage_type)+
-  labs(x="force rating", y="average salvage percent", color="Hiring hall")+
+  labs(x="force rating", y="average salvage percent", color="Hiring hall",
+       title="Average salvage percent by force rating and hiring hall")+
   scale_color_westeros("Targaryen")+
-  #scale_color_pomological()+
   scale_y_continuous(labels = scales::percent)+
   theme_ipsum()
 ```
 
-```{r}
+In both cases, we can see the dominance of force rating, although its a bit bouncy. Hiring hall doesn't make much difference at all for full salvage rights. Exchange usually comes with lower percentages.
+
+### Support
+
+Ok, now lets do the same thing for support by straight support vs. battle loss compensation.
+
+```{r support-hall}
 results %>%
-  ggplot(aes(x=salvage_type, y=..prop.., group=hall, fill=hall))+
+  ggplot(aes(x=support_type, y=..prop.., group=hall, fill=hall))+
   geom_bar(position = "dodge", color=NA)+
-  labs(x="salvage type", y="percent", fill="Hiring hall")+
+  labs(x="support type", y="percent", fill="Hiring hall",
+       title="Distribution of support type by hiring hall")+
   scale_fill_pomological()+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-```{r}
+```{r support-rating}
 results %>%
-  ggplot(aes(x=salvage_type, y=..prop.., group=rating, fill=rating))+
+  ggplot(aes(x=support_type, y=..prop.., group=rating, fill=rating))+
   geom_bar(position = "dodge", color=NA)+
-  labs(x="salvage type", y="percent", fill="Force rating")+
+  labs(x="support type", y="percent", fill="Force rating",
+       title="Distribution of support type by force rating")+
   scale_fill_pomological()+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-```{r}
+In general, higher ratings and better halls increase the likelihood of BLC, although the effect is less pronounced for hiring hall. Lets look across both variables at once again.
+
+```{r support-rating-hall, fig.height=10, fig.width=8}
 results %>%
-  ggplot(aes(x=salvage_type, y=..prop.., group=1))+
+  ggplot(aes(x=support_type, y=..prop.., group=1))+
   geom_bar(position = "dodge", color=NA)+
   facet_grid(rating~hall)+
-  labs(x="salvage type", y="percent", fill="Force rating")+
+  labs(x="support type", y="percent",
+       title="Support type by force rating and hiring hall")+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-```{r}
+Looks pretty good. If you are at the upper echelons, you are almost always getting BLC. Its still the modal category even at the lowest ends of the spectrum, but substantially less likely.
+
+Now lets look at how the percent received varies by unit rating and hiring hall.
+
+```{r support-pct}
 results_support %>%
   ggplot(aes(x=rating, y=mean_support_pct/100, group=hall, color=hall))+
   geom_line()+
   geom_point()+
   facet_wrap(~support_type)+
-  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  labs(x="force rating", y="average support percent", color="Hiring hall",
+       title="Support percent by force rating and hiring hall")+
   scale_color_westeros("Targaryen")+
   scale_y_continuous(labels = scales::percent)+
   theme_ipsum()
 ```
 
-```{r}
-results %>%
-  ggplot(aes(x=support_type, y=..prop.., group=hall, fill=hall))+
-  geom_bar(position = "dodge", color=NA)+
-  labs(x="support type", y="percent", fill="Hiring hall")+
-  scale_fill_pomological()+
-  scale_y_continuous(labels = scales::percent)+
-  coord_flip()+
-  theme_ipsum()
-```
+You get a lot lower percentage in BLC than straight support, but this is by design since straight support will be a much smaller amount in the case of even modest battlefield losses. For BLC, hiring hall matters a bit in a consistent way -- better hiring halls get higher BLC. This is somewhat true but more noisy for straight support. In both cases, higher ratings give you better BLC, although there is some "plateauing in the D through B range. 
 
-```{r}
-results %>%
-  ggplot(aes(x=support_type, y=..prop.., group=rating, fill=rating))+
-  geom_bar(position = "dodge", color=NA)+
-  labs(x="support type", y="percent", fill="Force rating")+
-  scale_fill_pomological()+
-  scale_y_continuous(labels = scales::percent)+
-  coord_flip()+
-  theme_ipsum()
-```
-```{r}
-results %>%
-  ggplot(aes(x=support_type, y=..prop.., group=1))+
-  geom_bar(position = "dodge", color=NA)+
-  facet_grid(rating~hall)+
-  labs(x="support type", y="percent", fill="Force rating")+
-  scale_y_continuous(labels = scales::percent)+
-  coord_flip()+
-  theme_ipsum()
-```
+### Transport
 
+Lets look at how average transport percentage varies by unit rating and hiring hall. 
 
-```{r}
+```{r transport-pct}
 results_grp %>%
   ggplot(aes(x=rating, y=mean_transport_pct/100, group=hall, color=hall))+
   geom_line()+
   geom_point()+
-  labs(x="force rating", y="average transport percent", color="Hiring hall")+
+  labs(x="force rating", y="average transport percent", color="Hiring hall",
+       title="Average transport percent by force rating and hiring hall")+
   scale_color_westeros("Targaryen")+
   scale_y_continuous(labels = scales::percent)+
   theme_ipsum()
 ```
 
-```{r}
+This looks good and straightforward. It looks very similar to the payment multiplier results. Both unit rating and hiring hall matter.
+
+### MRBC
+
+What percent of contracts are covered by the MRBCfor each combination of rating and hall?
+
+```{r mrbc}
 results_grp %>%
   ggplot(aes(x=rating, y=pct_mrbc, group=hall, color=hall))+
   geom_line()+
   geom_point()+
-  labs(y="percent MRBC", color="Hiring hall")+
+  labs(y="percent MRBC", color="Hiring hall",
+       title="Percent of contracts MRBC by unit rating and hiring hall")+
   scale_color_westeros("Targaryen")+
   scale_y_continuous(labels = scales::percent)+
   theme_ipsum()
 ```
 
+I love this graph because it makes total sense. At the ends of the spectrum, hiring halls is all that matters. Virtually all contracts in great hiring halls are MRBC, while when there is no hiring hall, almost no contracts are MRBC. The remaining hiring halls vary somewhat across force rating which makes sense. 
 
-```{r}
+### Employer types
+
+Ok, lets look at the overall distribution of employers.
+
+```{r employer-dist}
 results %>%
   ggplot(aes(x=employer, y=..prop.., group=1))+
   geom_bar()+
-  labs(x=NULL, y="percent", fill="Force rating")+
+  labs(x=NULL, y="percent", fill="Force rating",
+       title="Distribution of employers across all contracts")+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-```{r}
+Ok, its important to remember that this is not really an "average" because we are weighting all possible combinations equally. Nonetheless, this distribution looks pretty good.
+
+To get a better sense of whats going on lets facet this by unit rating and hall.
+
+```{r employer-rating-hall, fig.height=12, fig.width=8}
 results %>%
   ggplot(aes(x=employer, y=..prop.., group=1))+
   geom_bar()+
-  labs(x=NULL, y="percent", fill="Force rating")+
+  labs(x=NULL, y="percent", fill="Force rating",
+       title="Employer distribution by unit rating and hiring hall")+
   facet_grid(rating~hall)+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-This looks pretty good, but a couple of issues to address:
+Ok, there is a lot to look at here, but overall I think this looks good. Importantly there are really big differences across the panels, telling me that the experience will differ by the combination of unit rating and hiring hall. These differences should be notable to players.
 
-* I think corporations are showing up far too little here. 
-* I also think planetary governments show up a little too low relative to private parties. Those should be a little more balanced
-* The effect of higher halls and higher rating combined might make that end of the distribution a little boring as its usually great houses. 
+### Mission Types
 
-```{r}
+Lets look at the distribution of mission types across contracts.
+
+```{r mission-dist}
 results %>%
   ggplot(aes(x=reorder(mission_type, mission_type, length), y=..prop.., group=1))+
   geom_bar()+
-  labs(x=NULL, y="percent", fill="Force rating")+
+  labs(x=NULL, y="percent", fill="Force rating",
+       title="Distribution of mission types")+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
 
-```{r}
+That makes sense based on the canon. Garrison duty should be quite common and objective raids are described in *FM:Merc* as the most common offensive mission. 
+
+Lets look at mission types by unit rating and hiring hall.
+
+```{r mission-rating-hall, fig.height=14, fig.width=8}
 results %>%
   ggplot(aes(x=reorder(mission_type, mission_type, length), y=..prop.., group=1))+
   geom_bar()+
   facet_grid(rating~hall)+
-  labs(x=NULL, y="percent", fill="Force rating")+
+  labs(x=NULL, y="percent", fill="Force rating",
+       title="Distribution of mission type by unit rating and hiring hall")+
   scale_y_continuous(labels = scales::percent)+
   coord_flip()+
   theme_ipsum()
 ```
+
+This looks good. Again we see big differences across panels.
+
+As a final check, lets look at the distribution of mission types by employer.
+
+```{r mission-employer, fig.height=12, fig.width=8}
+results %>%
+  ggplot(aes(x=reorder(mission_type, mission_type, length), y=..prop.., group=1))+
+  geom_bar()+
+  facet_wrap(~employer)+
+  labs(x=NULL, y="percent",
+       title="Distribution of mission type by employer type")+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()+
+  theme_ipsum()
+```
+
+This looks good. We can clearly see that different employer types want different things but we get good diversity within each group.

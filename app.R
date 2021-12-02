@@ -7,15 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(dplyr)
-library(read.so)
-library(tidyr)
-library(stringr)
-library(purrr)
-library(knitr)
-library(markdown)
-library(kableExtra)
+source("check_packages.R")
 source("read_tables.R")
 source("functions.R")
 
